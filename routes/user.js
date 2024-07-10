@@ -1,7 +1,6 @@
 import express from 'express';
 import * as userService from '../services/user.service'
 
-
 const userRoutes = express.Router();
 
 const catchAsync = fn => (req, res, next) => {
@@ -23,7 +22,21 @@ userRoutes.get("/", catchAsync(async (req, res) => {
 
 // get user by id
 
-userRoutes.get("/", catchAsync(async (req, res) => {
+userRoutes.get("/id", catchAsync(async (req, res) => {
     const user = await userService.getUser(req.body);
     res.status(200).json(user)
+}))
+
+// delete user
+
+userRoutes.get("/id", catchAsync(async (req, res) => {
+    const user = await userService.deleteUser(req.body);
+    res.status(200).json(user)
+}))
+
+// update user
+
+userRoutes.get("/id", catchAsync(async (req, res) => {
+    const user = await userService.updateUser(req.body);
+    res.status(200).json(user);
 }))
