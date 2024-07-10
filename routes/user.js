@@ -40,3 +40,5 @@ userRoutes.get("/id", catchAsync(async (req, res) => {
     const user = await userService.updateUser(req.body);
     res.status(200).json(user);
 }))
+
+module.exports = userRoutes
