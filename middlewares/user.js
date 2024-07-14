@@ -1,6 +1,10 @@
 const jwt = require("jsonwebtoken");
 const user = require("../models/user.model");
+const decryptToken = (encryptToken) => {
+    const bytes = CryptoJS.AES.decrypt(encryptToken, process.env.ENCRYPTION_SECRET);
+    return bytes.toString(CryptoJS.enc.Utf8)
 
+}
 const authentication = async (req, res, next) => {
     try {
         const token = req.header('Authorization').replace('Bearer', '');
