@@ -23,6 +23,7 @@ const authentication = async (req, res, next) => {
     } catch (e) {
         res.status(401).send({ error: "Please Authenticate" });
     }
+    // asdas
 }
 const checkAdmin = (req, res, next) => {
     if (req.user.role !== "admin") {
