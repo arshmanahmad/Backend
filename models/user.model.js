@@ -1,8 +1,8 @@
 import mongoose from "mongoose"
-const Joi = require('joi');
+const Joi = require('joi')
+const bcrypt = require('bcryptjs')
 
 const userSchema = new mongoose.Schema({
-
     email: {
         type: String,
         required: true,
@@ -13,6 +13,19 @@ const userSchema = new mongoose.Schema({
         required: true
     }
 })
+// Pre-save hook to hash the password
+userSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) {
+        return next()
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt)
+
+})
+
+// Joi validation schema for user
+
 
 const User = mongoose.model("user", userSchema)
 
