@@ -25,9 +25,17 @@ userSchema.pre('save', async function (next) {
 })
 
 // Joi validation schema for user
+const validateUser = (user) => {
+    const schema = Joi.object({
+        email: Joi.string().email().required(),
+        password: Joi.string().min(6).required(),
+    })
+    return schema.validate(user)
+}
 
+const User = mongoose.model("User", userSchema)
 
-const User = mongoose.model("user", userSchema)
-
-export default User
-export { userSchema }
+module.exports = {
+    User,
+    validateUser
+}
