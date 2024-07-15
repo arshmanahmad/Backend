@@ -1,6 +1,6 @@
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const User = require('../models/user.model');
+import { sign } from 'jsonwebtoken';
+import { compare } from 'bcryptjs';
+import User, { findOne } from '../models/user.model';
 
 const register = async (email, password) => {
     const user = new User({ email, password });
@@ -9,18 +9,18 @@ const register = async (email, password) => {
 }
 
 const login = async (email, password) => {
-    const user = await User.findOne({ email });
+    const user = await findOne({ email });
     if (!user) {
         throw new Error('invalid email or password');
     }
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await compare(password, user.password);
     if (!isMatch) {
         throw new Error('invalid email or password')
     }
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
     return token;
 }
-module.exports = {
+export default {
     register,
     login
 }
