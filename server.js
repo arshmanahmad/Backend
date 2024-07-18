@@ -15,56 +15,55 @@
 // })
 
 
-// import express from 'express'
-// import cors from "cors";
-// import { connectDb } from './db/connectDB.js';
-// import User from './models/user.model.js';
+import express from 'express'
+import cors from "cors";
+import User from './models/user.model'
 
-// const server = express()
-// server.use(express.json())
-// server.use(cors());
+const server = express()
+server.use(express.json())
+server.use(cors());
 
-// const router = express.Router()
+const router = express.Router()
 
-// connectDb()
+connectDb()
 
-// router.post("/login", (req, res) => {
-//     const { password, email } = req.body
+router.post("/login", (req, res) => {
+    const { password, email } = req.body
 
 
-//     console.log(password, email);
+    console.log(password, email);
 
-//     res.json({
-//         success: true,
-//         message: "Login successfull"
-//     })
-// })
+    res.json({
+        success: true,
+        message: "Login successfull"
+    })
+})
 
-// router.post("/signUp", async (req, res) => {
-//     const { name, email, password } = req.body
+router.post("/signUp", async (req, res) => {
+    const { email, password } = req.body
 
-//     try {
-//         const emailExists = await User.findOne({ email })
+    try {
+        const emailExists = await user.findOne({ email })
 
-//         if (emailExists) {
-//             throw new Error("Email Already taken")
-//         }
+        if (emailExists) {
+            throw new Error("Email Already taken")
+        }
 
-//         const user = await User.create({ name, email, password })
+        const user = await User.create({ email, password })
 
-//         res.json({ user })
-//     } catch (e) {
-//         res.status(405).json({
-//             success: false,
-//             message: e.message
-//         })
-//     }
+        res.json({ user })
+    } catch (e) {
+        res.status(405).json({
+            success: false,
+            message: e.message
+        })
+    }
 
-// })
+})
 
-// server.use("/api", router)
+server.use("/api", router)
 
-// server.listen(4000, () => {
-//     console.log("Server started at 4000")
-// })
+server.listen(4000, () => {
+    console.log("Server started at 4000")
+})
 // asdasd

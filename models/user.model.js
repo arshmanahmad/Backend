@@ -34,8 +34,5 @@ const validateUser = (user) => {
 }
 
 const User = mongoose.model("User", userSchema)
-
-module.exports = {
-    User,
-    validateUser
-}
+export default User;
+export { validateUser };
