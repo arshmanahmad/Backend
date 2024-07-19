@@ -1,4 +1,4 @@
-const User = require("../models/user.model")
+import User, { find, findById, findByIdAndDelete } from "../models/user.model";
 
 
 //create new user
@@ -15,7 +15,7 @@ const createUser = async (userData) => {
 // get all users
 const getAllUsers = async () => {
     try {
-        const users = User.find();
+        const users = find();
         return users;
     } catch (error) {
         throw new Error("Error getting users:" + error.message)
@@ -25,7 +25,7 @@ const getAllUsers = async () => {
 // get user by id 
 const getUser = async (userId) => {
     try {
-        const user = await User.findById(userId);
+        const user = await findById(userId);
         if (!user) {
             throw new Error("user not found");
         }
@@ -38,7 +38,7 @@ const getUser = async (userId) => {
 // update user 
 const updateUser = async (userId, userData) => {
     try {
-        const user = await User.findByIdAndDelete(userId, userData, { new: true });
+        const user = await findByIdAndDelete(userId, userData, { new: true });
         if (!user) {
             throw new Error("User not found");
         }
@@ -51,7 +51,7 @@ const updateUser = async (userId, userData) => {
 // delete user
 const deleteUser = async (userId) => {
     try {
-        const user = await User.findByIdAndDelete(userId);
+        const user = await findByIdAndDelete(userId);
         if (!user) {
             throw new Error("user not found");
         }
@@ -62,7 +62,7 @@ const deleteUser = async (userId) => {
 
 }
 
-module.exports = {
+export default {
     createUser,
     getAllUsers,
     getUser,
