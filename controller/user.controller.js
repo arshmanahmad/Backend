@@ -1,11 +1,11 @@
 // controllers/user.controller.js
 
-const userService = require('../services/user.service');
+import { createUser as _createUser, getAllUsers as _getAllUsers, getUser, updateUser as _updateUser, deleteUser as _deleteUser } from '../services/user.service';
 
 // Create user
 const createUser = async (req, res, next) => {
     try {
-        const user = await userService.createUser(req.body);
+        const user = await _createUser(req.body);
         res.status(201).json(user);
     } catch (error) {
         next(error); // Pass the error to the error handling middleware
@@ -15,7 +15,7 @@ const createUser = async (req, res, next) => {
 // Get all users
 const getAllUsers = async (req, res, next) => {
     try {
-        const users = await userService.getAllUsers();
+        const users = await _getAllUsers();
         res.status(200).json(users);
     } catch (error) {
         next(error); // Pass the error to the error handling middleware
@@ -26,7 +26,7 @@ const getAllUsers = async (req, res, next) => {
 const getUserById = async (req, res, next) => {
     try {
         const userId = req.params.id; // Assuming the ID is passed in the URL params
-        const user = await userService.getUser(userId);
+        const user = await getUser(userId);
         res.status(200).json(user);
     } catch (error) {
         next(error); // Pass the error to the error handling middleware
@@ -37,7 +37,7 @@ const getUserById = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
     try {
         const userId = req.params.id; // Assuming the ID is passed in the URL params
-        const updatedUser = await userService.updateUser(userId, req.body);
+        const updatedUser = await _updateUser(userId, req.body);
         res.status(200).json(updatedUser);
     } catch (error) {
         next(error); // Pass the error to the error handling middleware
@@ -48,14 +48,14 @@ const updateUser = async (req, res, next) => {
 const deleteUser = async (req, res, next) => {
     try {
         const userId = req.params.id; // Assuming the ID is passed in the URL params
-        const deletedUser = await userService.deleteUser(userId);
+        const deletedUser = await _deleteUser(userId);
         res.status(200).json(deletedUser);
     } catch (error) {
         next(error); // Pass the error to the error handling middleware
     }
 };
 
-module.exports = {
+export default {
     createUser,
     getAllUsers,
     getUserById,
