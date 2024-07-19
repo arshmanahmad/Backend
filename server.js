@@ -17,8 +17,8 @@
 
 import express from 'express'
 import cors from "cors";
-import User from './models/user.model'
-
+import User from './models/user.model.js'
+import { connectDb } from './db/connectDB.js'
 const server = express()
 server.use(express.json())
 server.use(cors());
@@ -43,7 +43,7 @@ router.post("/signUp", async (req, res) => {
     const { email, password } = req.body
 
     try {
-        const emailExists = await user.findOne({ email })
+        const emailExists = await User.findOne({ email })
 
         if (emailExists) {
             throw new Error("Email Already taken")
@@ -66,4 +66,3 @@ server.use("/api", router)
 server.listen(4000, () => {
     console.log("Server started at 4000")
 })
-// asdasd

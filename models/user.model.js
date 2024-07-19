@@ -1,6 +1,8 @@
 import mongoose from "mongoose"
-const Joi = require('joi')
-const bcrypt = require('bcryptjs')
+import Joi from 'joi';
+
+import bcrypt from 'bcryptjs';
+
 
 const userSchema = new mongoose.Schema({
     email: {

@@ -41,4 +41,4 @@ userRoutes.get("/id", catchAsync(async (req, res) => {
     res.status(200).json(user);
 }))
 
-module.exports = userRoutes;
+export default userRoutes;

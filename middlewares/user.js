@@ -31,7 +31,7 @@ const checkAdmin = (req, res, next) => {
     }
     next();
 }
-module.exports = {
+export default {
     authentication,
-    checkAdmin,
+    checkAdmin
 }
