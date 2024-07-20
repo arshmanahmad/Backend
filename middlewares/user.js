@@ -1,5 +1,5 @@
-const jwt = require("jsonwebtoken");
-const user = require("../models/user.model");
+import jwt from "jsonwebtoken";
+import { User } from '../models/user.model'
 const decryptToken = (encryptToken) => {
     const bytes = CryptoJS.AES.decrypt(encryptToken, process.env.ENCRYPTION_SECRET);
     return bytes.toString(CryptoJS.enc.Utf8)
@@ -9,7 +9,7 @@ const authentication = async (req, res, next) => {
     try {
         const token = req.header('Authorization').replace('Bearer', '');
         const decoded = jwt.verify(token, process.env.JWT__SECRET);
-        const user = await user.findOne({ _id: decoded._id, "tokens.token": token });
+        const user = await User.findOne({ _id: decoded._id, "tokens.token": token });
 
         if (!user) {
             throw new error;

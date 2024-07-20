@@ -22,11 +22,14 @@ import { connectDb } from './db/connectDB.js'
 const server = express()
 server.use(express.json())
 server.use(cors());
-
+import authRoutes from './routes/auth.routes.js'
 const router = express.Router()
 
 connectDb()
 
+router.get('/', (req, res) => {
+    res.send('Welcome to the API')
+})
 router.post("/login", (req, res) => {
     const { password, email } = req.body
 
@@ -61,7 +64,7 @@ router.post("/signUp", async (req, res) => {
 
 })
 
-server.use("/api", router)
+server.use("/api", authRoutes)
 
 server.listen(4000, () => {
     console.log("Server started at 4000")

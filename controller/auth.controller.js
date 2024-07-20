@@ -1,5 +1,5 @@
 import { User, validateUser } from '../models/user.model';
-const authService = require('../services/auth.service')
+import authService from '../services/auth.service'
 
 const register = async (req, res) => {
     const { error } = validateUser(req.body);
