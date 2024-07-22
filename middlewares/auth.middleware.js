@@ -1,6 +1,6 @@
 // middleware/auth.middleware.js
 import { verify } from 'jsonwebtoken';
-import { findById } from '../models/user.model';
+import { findById } from '../models/user.model.js';
 
 const authenticateToken = async (req, res, next) => {
     const authHeader = req.headers['authorization'];
