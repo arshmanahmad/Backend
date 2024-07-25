@@ -1,6 +1,6 @@
-// middleware/auth.middleware.js
-import { verify } from 'jsonwebtoken';
-import { findById } from '../models/user.model.js';
+import pkg from 'jsonwebtoken';
+const { verify } = pkg;
+import User from '../models/user.model.js'; // Adjust import if needed to align with your project structure
 
 const authenticateToken = async (req, res, next) => {
     const authHeader = req.headers['authorization'];
@@ -12,7 +12,7 @@ const authenticateToken = async (req, res, next) => {
 
     try {
         const decoded = verify(token, process.env.JWT_SECRET);
-        const user = await findById(decoded._id);
+        const user = await User.findById(decoded._id); // Adjust if needed to align with your project structure
         if (!user) {
             return res.status(401).send('Invalid token.');
         }

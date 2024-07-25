@@ -1,5 +1,5 @@
-import { User, validateUser } from '../models/user.model';
-import authService from '../services/auth.service'
+import { validateUser } from '../models/user.model.js';
+import authService from '../services/auth.service.js'
 
 const register = async (req, res) => {
     const { error } = validateUser(req.body);
